@@ -1,0 +1,6 @@
+@import '../../styles/variables.scss';
+
+.main {
+  margin: 13rem 1rem 25rem 1rem;
+  @include flex(column, center, center);
+}

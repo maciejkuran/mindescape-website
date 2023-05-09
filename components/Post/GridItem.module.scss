@@ -1,0 +1,60 @@
+@import '../../styles/variables.scss';
+.item {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: $border-radius;
+
+  &__img {
+    width: 100%;
+    max-height: 80rem;
+    object-fit: cover;
+    object-position: center;
+    border-radius: $border-radius;
+    transition: all 500ms ease-in-out;
+
+    &:hover {
+      transform: scale(103%);
+      opacity: 0.9;
+    }
+  }
+
+  &__data {
+    position: absolute;
+    bottom: 5%;
+    left: 3%;
+    max-width: 90%;
+
+    &__btn {
+      border-color: $white;
+      color: $white;
+
+      &:hover {
+        color: $black;
+
+        svg {
+          color: $black;
+        }
+      }
+
+      svg {
+        color: $white;
+      }
+    }
+  }
+
+  h3 {
+    background-color: $black;
+    color: $white;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .item {
+    &__img {
+      max-height: 50rem;
+    }
+  }
+}

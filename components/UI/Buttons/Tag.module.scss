@@ -1,0 +1,15 @@
+@import '../../../styles/variables.scss';
+
+.tag {
+  color: $black;
+  background-color: $grey2;
+  border-radius: $border-radius;
+  transition: all 300ms ease-in-out;
+  padding: 1rem 3rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+
+  &:hover {
+    background-color: $grey3;
+  }
+}

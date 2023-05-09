@@ -1,0 +1,128 @@
+@import '../../styles/variables.scss';
+
+.navbar {
+  @include flex(row, center, center);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 1rem;
+  z-index: 3;
+
+  &__logo {
+    h5 {
+      font-weight: 700;
+    }
+  }
+
+  &__container {
+    max-width: 150rem;
+    width: 100%;
+    @include flex(row, space-between, center);
+    background-color: $grey1;
+    margin-top: 1rem;
+    padding: 2rem;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+
+    transition: all 300ms ease-in-out;
+  }
+
+  &__container--active {
+    transform: translateY(0);
+  }
+
+  &__container--inactive {
+    transform: translateY(-200%);
+  }
+
+  svg {
+    height: 25px;
+    width: 25px;
+    margin-left: 2rem;
+    color: $grey5;
+    transition: all 300ms ease-in-out;
+  }
+
+  svg:hover {
+    color: $black;
+  }
+}
+
+.nav-list {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: url('../../public/images/doodles.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 50vw;
+  @include flex(center, center, center);
+  transform: translateX(0);
+  transition: all 500ms ease-in-out;
+  z-index: 4;
+
+  li {
+    margin: 3rem 0;
+    background-color: $black;
+    padding: 1.5rem;
+  }
+
+  a {
+    font-size: 5rem;
+    font-weight: 600;
+    color: $white;
+
+    &:hover {
+      border-bottom: none;
+      color: $green;
+    }
+  }
+
+  &__btn--close {
+    background-color: black;
+    margin: 0;
+    padding: 1.5rem;
+    position: fixed;
+    top: 3%;
+    right: 3%;
+
+    svg {
+      margin: 0;
+
+      &:hover {
+        color: $white;
+      }
+    }
+  }
+}
+
+.nav-list--inactive {
+  transform: translateX(100%);
+}
+
+@media (max-width: 650px) {
+  .nav-list {
+    width: 70vw;
+    @include flex(center, center, flex-start);
+
+    ul {
+      margin-top: 6rem;
+    }
+
+    a {
+      font-size: 3rem;
+    }
+  }
+}
+
+@media (max-width: 460px) {
+  .navbar {
+    svg {
+      height: 20px;
+      width: 20px;
+    }
+  }
+}

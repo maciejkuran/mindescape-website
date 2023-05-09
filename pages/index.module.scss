@@ -1,0 +1,54 @@
+@import '../styles/variables.scss';
+
+.featured {
+  margin-top: 5rem;
+
+  &__listing {
+    width: 95vw;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+      'main main'
+      'second third';
+    gap: 2rem;
+
+    &__item--1 {
+      grid-area: main;
+    }
+
+    &__item--2 {
+      grid-area: second;
+    }
+
+    &__item--3 {
+      grid-area: third;
+    }
+  }
+}
+
+.browse-all {
+  max-width: 120rem;
+  width: 100%;
+  margin-top: 2.5rem;
+
+  &__card {
+    background: $gradient2;
+  }
+
+  p {
+    margin-bottom: 2rem;
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 700px) {
+  .featured {
+    &__listing {
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-areas:
+        'main'
+        'second'
+        'third';
+    }
+  }
+}
