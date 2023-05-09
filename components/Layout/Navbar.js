@@ -1,16 +1,26 @@
 import { useEffect, useState } from 'react';
 import usePrevious from '@/hooks/usePrevious';
+import useModal from '@/hooks/useModal';
 import classes from './Navbar.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
-import Overlay from '../Modals/Overlay';
+import Overlay from '../UI/Modals/Overlay';
 import Search from '../Search/Search';
 
 const Navbar = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const prevScrollPosition = usePrevious(scrollPosition);
-  const [activeNav, setActiveNav] = useState(false);
+  const {
+    activeModal: activeNav,
+    showModal: showNavHandler,
+    hideModal: hideNavHandler,
+  } = useModal();
+  const {
+    activeModal: activeSearch,
+    showModal: showSearchHandler,
+    hideModal: hideSearchHandler,
+  } = useModal();
 
   const scrollHandler = () => {
     const position = window.pageYOffset;
@@ -31,14 +41,6 @@ const Navbar = () => {
     if (scrollPosition > prevScrollPosition) return classes['navbar__container--inactive'];
   };
 
-  const showNavHandler = () => {
-    setActiveNav(true);
-  };
-
-  const hideNavHandler = () => {
-    setActiveNav(false);
-  };
-
   return (
     <>
       <header className={classes.navbar}>
@@ -47,7 +49,7 @@ const Navbar = () => {
             <h5>mindescape</h5>
           </Link>
           <div>
-            <button title="search">
+            <button onClick={showSearchHandler} title="search">
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
             <button onClick={showNavHandler} title="navigation">
@@ -72,9 +74,11 @@ const Navbar = () => {
             <FontAwesomeIcon icon={faXmark} />
           </button>
         </nav>
-        {activeNav && <Overlay onClick={hideNavHandler} />}
+        {(activeNav || activeSearch) && (
+          <Overlay onClick={(activeNav && hideNavHandler) || (activeSearch && hideSearchHandler)} />
+        )}
       </header>
-      <Search />
+      {activeSearch && <Search onClick={hideSearchHandler} />}
     </>
   );
 };
