@@ -42,15 +42,15 @@ const Search = props => {
           <Tag name="Featured" />
         </Link>
       </div>
-      <div>
+      <form>
         <Input
           attributes={{
             onChange: searchTitleHandler,
             type: 'text',
-            placeholder: 'Search by title',
+            placeholder: 'Search by title or phrase',
           }}
         />
-      </div>
+      </form>
       <div className={classes['search__results']}>
         {data && <p>Results: {quantity}</p>}
         <ul>

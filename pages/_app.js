@@ -6,7 +6,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Mindescape</title>
+        <title>mindescape</title>
         <meta
           name="description"
           content="By Artists, for Artists. We support worldwide contemporary independent artists."
