@@ -26,7 +26,7 @@ const Search = props => {
     const timer = setTimeout(() => {
       let title = formatTitleToUrl(searchTitle);
       if (title) {
-        sendFetchReq(`https://mindescape-cms.vercel.app/api/articles/article-title/${title}`);
+        sendFetchReq(`${process.env.NEXT_PUBLIC_API_URL}/articles/article-title/${title}`);
       }
     }, 1500);
 

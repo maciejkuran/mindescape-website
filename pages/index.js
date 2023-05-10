@@ -7,7 +7,7 @@ import Card from '@/components/UI/Card';
 import PrimaryButton from '@/components/UI/Buttons/PrimaryButton';
 import Link from 'next/link';
 
-export default function Home(props) {
+export default function HomePage(props) {
   const { featuredArticles, errCode, errMessage } = props;
 
   if (errCode && errMessage) {
@@ -49,7 +49,7 @@ export default function Home(props) {
 
 export const getStaticProps = async context => {
   //get featured articles
-  const res = await fetch('https://mindescape-cms.vercel.app/api/articles');
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/articles`);
   const data = await res.json();
   const errCode = res.ok ? false : res.status;
   const errMessage = data.message ? data.message : false;

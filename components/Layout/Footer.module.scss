@@ -25,3 +25,19 @@
     font-weight: 700;
   }
 }
+
+@media (max-width: 515px) {
+  .footer {
+    @include flex(column, flex-start, center);
+    min-height: 8rem;
+
+    h4 {
+      text-align: center;
+      margin: 1rem 0;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+  }
+}

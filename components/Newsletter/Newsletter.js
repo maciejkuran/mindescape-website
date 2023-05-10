@@ -18,11 +18,10 @@ const Newsletter = props => {
   );
 
   const signNewsletterHandler = async e => {
-    console.log(emailInputRef.current.value);
     e.preventDefault();
 
     await sendPostReq(
-      'https://mindescape-cms.vercel.app/api/newsletter',
+      `${process.env.NEXT_PUBLIC_API_URL}/newsletter`,
       reqConfig('POST', { email: emailInputRef.current.value })
     );
 
@@ -46,7 +45,7 @@ const Newsletter = props => {
         )}
         {error && (
           <p className={`${classes['form__notification']} ${classes['form__notification--error']}`}>
-            😧 {error}
+            ⚠ {error}
           </p>
         )}
         {isLoading && <LoadingSpinner />}
