@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import usePrevious from '@/hooks/usePrevious';
 import useModal from '@/hooks/useModal';
 import classes from './Navbar.module.scss';
@@ -9,6 +10,7 @@ import Overlay from '../UI/Modals/Overlay';
 import Search from '../Search/Search';
 
 const Navbar = () => {
+  const router = useRouter();
   const [scrollPosition, setScrollPosition] = useState(0);
   const prevScrollPosition = usePrevious(scrollPosition);
   const {
@@ -26,6 +28,13 @@ const Navbar = () => {
     const position = window.pageYOffset;
     setScrollPosition(position);
   };
+
+  //Hide nav when navigating to a different route
+  useEffect(() => {
+    if (router.isReady) {
+      hideNavHandler();
+    }
+  }, [router.isReady, router.pathname]);
 
   useEffect(() => {
     window.addEventListener('scroll', scrollHandler);

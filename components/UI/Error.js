@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const Error = props => {
   return (
-    <section>
+    <section className={classes.err}>
       <div>
         <h1>Oh no! Error {props.code} occured.</h1>
         <p>{props.message}</p>
