@@ -1,8 +1,13 @@
+import usePagination from '@/hooks/usePagination';
 import classes from './index.module.scss';
 import GridItem from '@/components/Post/GridItem';
 import Error from '@/components/UI/Error';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import LoadingSpinner from '@/components/UI/Modals/LoadingSpinner';
 
 const ArticlesPage = ({ articles, errCode, errMessage }) => {
+  const { getItems, itemsToRender } = usePagination(articles);
+
   if (errCode && errMessage) {
     return (
       <section className={classes.articles}>
@@ -15,13 +20,22 @@ const ArticlesPage = ({ articles, errCode, errMessage }) => {
     <section className={classes.articles}>
       <h1>Browse All Articles</h1>
 
-      <ul className={classes['articles__list']}>
-        {articles &&
-          articles.map(article => (
-            <li key={article._id}>
-              <GridItem data={article} />
-            </li>
-          ))}
+      <ul>
+        <InfiniteScroll
+          className={classes['articles__list']}
+          dataLength={itemsToRender.length}
+          next={getItems}
+          hasMore={itemsToRender.length !== articles.length ? true : false}
+          loader={<LoadingSpinner />}
+          //   endMessage={<p>Done</p>}
+        >
+          {itemsToRender &&
+            itemsToRender.map(article => (
+              <li key={article._id}>
+                <GridItem data={article} />
+              </li>
+            ))}
+        </InfiniteScroll>
       </ul>
     </section>
   );
