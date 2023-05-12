@@ -60,7 +60,7 @@ export const getStaticProps = async context => {
 
   return {
     props: {
-      featuredArticles,
+      featuredArticles: featuredArticles ? featuredArticles : null,
       errCode,
       errMessage,
     },

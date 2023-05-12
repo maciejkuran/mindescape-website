@@ -1,3 +1,5 @@
+import useHttp from '@/hooks/useHttp';
+import { useEffect } from 'react';
 import classes from './index.module.scss';
 import formatUrlToTitle from '@/utils/formatUrlToTitle';
 import formatTitleToUrl from '@/utils/formatTitleToUrl';
@@ -11,10 +13,44 @@ import PrimaryButton from '@/components/UI/Buttons/PrimaryButton';
 import Link from 'next/link';
 import Newsletter from '@/components/Newsletter/Newsletter';
 import Error from '@/components/UI/Error';
+import reqConfig from '@/utils/reqConfig';
 
 const ArticlePage = ({ article, errCode, errMessage }) => {
-  //TODO: Handle POST comment request
-  //............................
+  const {
+    sendFetchReq,
+    isLoading: commentsAreLoading,
+    data: commentsData,
+    error: commentsError,
+    success: commentsSuccess,
+  } = useHttp();
+  const {
+    sendFetchReq: sendPostReq,
+    isLoading: postReqIsLoading,
+    data: postRes,
+    error: postError,
+    success: postSuccess,
+  } = useHttp();
+
+  //I want comments to be fetched on the frontend and I want to re-render component when new comments is added
+  useEffect(() => {
+    if (article) {
+      const timer = setTimeout(() => {
+        sendFetchReq(`${process.env.NEXT_PUBLIC_API_URL}/comments/${article._id}`);
+      }, 200);
+
+      return () => clearTimeout(timer);
+    }
+  }, [postSuccess, sendFetchReq]);
+
+  const submitCommentHandler = async data => {
+    await sendPostReq(
+      `${process.env.NEXT_PUBLIC_API_URL}/comments/${article._id}`,
+      reqConfig('POST', data)
+    );
+  };
+
+  const comments = commentsData && commentsData.comments;
+  const commentsQuantity = commentsData && commentsData.quantity;
 
   if (errCode && errMessage) {
     return <Error message={errMessage} code={errCode} />;
@@ -57,13 +93,20 @@ const ArticlePage = ({ article, errCode, errMessage }) => {
       </article>
 
       <section className={classes['comment-form']}>
-        <Form comments={false} heading="Leave a comment" textarea="Share your thoughts..." />
+        <Form
+          state={{ postReqIsLoading, postError, postSuccess, postRes }}
+          getDataHandler={submitCommentHandler}
+          comments={false}
+          heading="Leave a comment"
+          textarea="Share your thoughts..."
+        />
       </section>
 
       <section className={classes['comments-list']}>
         <CommentsList
-          quantity={article.comments ? article.comments.length : 0}
-          comments={article.comments}
+          state={{ commentsAreLoading, commentsError, commentsSuccess }}
+          quantity={commentsQuantity ? commentsQuantity : 0}
+          comments={comments}
         />
         <div className={classes['comments-list__btn--back']}>
           <Link href="/articles">
@@ -132,5 +175,6 @@ export const getStaticProps = async context => {
       errCode,
       errMessage,
     },
+    revalidate: 10,
   };
 };

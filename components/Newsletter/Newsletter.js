@@ -38,7 +38,7 @@ const Newsletter = props => {
         </div>
 
         <div className={classes['form__button']}>
-          <PrimaryButton>Sign up</PrimaryButton>
+          <PrimaryButton attributes={{ disabled: isLoading ? true : false }}>Sign up</PrimaryButton>
         </div>
         {success && (
           <p className={classes['form__notification']}>👋 Hello! You signed up successfully!</p>
