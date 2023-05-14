@@ -29,12 +29,12 @@ const Navbar = () => {
     setScrollPosition(position);
   };
 
-  //Hide nav when navigating to a different route
-  useEffect(() => {
-    if (router.isReady) {
-      hideNavHandler();
-    }
-  }, [router.isReady, router.pathname]);
+  // //Hide nav when navigating to a different route
+  // useEffect(() => {
+  //   if (router.isReady) {
+  //     hideNavHandler();
+  //   }
+  // }, [router.isReady, router.pathname, router.query.page]);
 
   useEffect(() => {
     window.addEventListener('scroll', scrollHandler);
@@ -69,13 +69,13 @@ const Navbar = () => {
 
         <nav className={`${classes['nav-list']} ${!activeNav && classes['nav-list--inactive']}`}>
           <ul>
-            <li>
-              <Link href="/articles">Articles</Link>
+            <li onClick={hideNavHandler}>
+              <Link href="/articles?page=1">Articles</Link>
             </li>
-            <li>
+            <li onClick={hideNavHandler}>
               <Link href="about">About</Link>
             </li>
-            <li>
+            <li onClick={hideNavHandler}>
               <Link href="/contact">Contact</Link>
             </li>
           </ul>

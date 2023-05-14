@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer className={classes.footer}>
       <div>
-        <p>Credit to Unsplash artists for providing amazing photos.</p>
+        <p>Credit to Unsplash and Pixabay Artists for providing amazing photos.</p>
         <p>Designed & developed by Maciej Kuran-Janowski.</p>
       </div>
       <h4>mindescape</h4>
