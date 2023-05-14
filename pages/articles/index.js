@@ -28,11 +28,13 @@ const ArticlesPage = ({
   //Render proper list with pre-fetched/pre-generated on the srv content
   return (
     <section className={classes.articles}>
-      <h1>Browse All Articles</h1>
+      {currentPage === 1 ? <h1>Browse All Articles</h1> : <h1>Articles: page {currentPage}</h1>}
 
-      <p className={classes['articles__page-nb']}>
-        <FontAwesomeIcon icon={faArrowRightLong} /> Browsing Page {currentPage}
-      </p>
+      {currentPage == 1 && (
+        <p className={classes['articles__page-nb']}>
+          <FontAwesomeIcon icon={faArrowRightLong} /> Browsing Page {currentPage}
+        </p>
+      )}
 
       <ul className={classes['articles__list']}>
         {paginatedArticles.map(article => (
