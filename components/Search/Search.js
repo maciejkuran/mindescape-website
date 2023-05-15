@@ -38,7 +38,7 @@ const Search = props => {
     <Card className={classes.search}>
       <h3>Search</h3>
       <div className={classes['search__tags']}>
-        <Link href="/articles/featured">
+        <Link onClick={props.hideSearchHandler} href="/articles?page=1&featured=true">
           <Tag name="Featured" />
         </Link>
       </div>
@@ -57,7 +57,10 @@ const Search = props => {
           {articles &&
             articles.map(article => (
               <li key={article._id}>
-                <Link href={`/articles/${formatTitleToUrl(article.title)}`}>
+                <Link
+                  onClick={props.hideSearchHandler}
+                  href={`/articles/${formatTitleToUrl(article.title)}`}
+                >
                   {article.title}
                   <span>
                     <FontAwesomeIcon icon={faArrowRightLong} />
@@ -73,7 +76,7 @@ const Search = props => {
         </div>
       )}
       {error && <p className={classes.error}>{error}</p>}
-      <button onClick={props.onClick} className={classes['search__btn--close']}>
+      <button onClick={props.hideSearchHandler} className={classes['search__btn--close']}>
         <FontAwesomeIcon icon={faXmark} />
       </button>
     </Card>
