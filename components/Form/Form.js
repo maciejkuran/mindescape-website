@@ -6,7 +6,7 @@ import Input from '../UI/Inputs/Input';
 import PrimaryButton from '../UI/Buttons/PrimaryButton';
 import LoadingSpinner from '@/components/UI/Modals/LoadingSpinner';
 
-const CommentForm = props => {
+const Form = props => {
   const {
     inputValue: textAreaValue,
     storeValueHandler: getTextAreaValue,
@@ -29,7 +29,7 @@ const CommentForm = props => {
     postSuccess: success,
     postRes: data,
   } = props.state;
-  const { getDataHandler } = props;
+  const { sendPostRequest } = props;
 
   //Clean input fields if POST request succeded
   useEffect(() => {
@@ -40,19 +40,19 @@ const CommentForm = props => {
     }
   }, [success, removeTextAreaValue, removeNameValue, removeEmailValue]);
 
-  const submitFormHandler = async e => {
+  const submitFormHandler = e => {
     e.preventDefault();
     const data = {
       content: textAreaValue,
       email: emailValue,
       name: nameValue,
     };
-    await getDataHandler(data);
+    sendPostRequest(data);
   };
 
   return (
     <form onSubmit={submitFormHandler} className={classes.form}>
-      <h3>{props.heading}</h3>
+      {props.heading && <h3>{props.heading}</h3>}
       <div>
         <TextArea
           attributes={{
@@ -101,4 +101,4 @@ const CommentForm = props => {
   );
 };
 
-export default CommentForm;
+export default Form;
