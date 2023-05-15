@@ -14,6 +14,7 @@ import Link from 'next/link';
 import Newsletter from '@/components/Newsletter/Newsletter';
 import Error from '@/components/UI/Error';
 import reqConfig from '@/utils/reqConfig';
+import MetaData from '@/components/MetaData/MetaData';
 
 const ArticlePage = ({ article, errCode, errMessage }) => {
   const {
@@ -42,8 +43,9 @@ const ArticlePage = ({ article, errCode, errMessage }) => {
     }
   }, [postSuccess, sendFetchReq]);
 
-  const submitCommentHandler = async data => {
-    await sendPostReq(
+  //Submitting comment
+  const sendPostRequest = data => {
+    sendPostReq(
       `${process.env.NEXT_PUBLIC_API_URL}/comments/${article._id}`,
       reqConfig('POST', data)
     );
@@ -55,8 +57,13 @@ const ArticlePage = ({ article, errCode, errMessage }) => {
   if (errCode && errMessage) {
     return <Error message={errMessage} code={errCode} />;
   }
+
+  //I want to receive first 25 words of excerpt to get about 150-160 characters
+  const metaDescription = article.excerpt && article.excerpt.split(' ').slice(0, 25).join(' ');
+
   return (
     <>
+      <MetaData title={article.title} description={metaDescription} />
       <header className={classes.header}>
         <Image
           className={classes['header__main-img']}
@@ -95,8 +102,8 @@ const ArticlePage = ({ article, errCode, errMessage }) => {
       <section className={classes['comment-form']}>
         <Form
           state={{ postReqIsLoading, postError, postSuccess, postRes }}
-          getDataHandler={submitCommentHandler}
-          comments={false}
+          sendPostRequest={sendPostRequest}
+          comments={true}
           heading="Leave a comment"
           textarea="Share your thoughts..."
         />
