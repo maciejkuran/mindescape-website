@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightLong, faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
 
-const Pagination = ({ totalArticlesLength, maxItemsPerPage, currentPage }) => {
+const Pagination = ({ totalArticlesLength, maxItemsPerPage, currentPage, featured }) => {
   const pagesCount = Math.ceil(totalArticlesLength / maxItemsPerPage);
 
   if (pagesCount === 1) return null;
@@ -26,10 +26,23 @@ const Pagination = ({ totalArticlesLength, maxItemsPerPage, currentPage }) => {
 
   const paginationNumbs = renderedPaginationNumbs();
 
+  const prevLink = !featured
+    ? `/articles?page=${currentPage - 1}&featured=false`
+    : `/articles?page=${currentPage - 1}&featured=true`;
+  const nextLink = !featured
+    ? `/articles?page=${currentPage + 1}&featured=false`
+    : `/articles?page=${currentPage + 1}&featured=true`;
+
+  const numbLink = page => {
+    if (!featured) return `/articles?page=${page}&featured=false`;
+
+    return `/articles?page=${page}&featured=true`;
+  };
+
   return (
     <div className={classes.pagination}>
       {currentPage !== 1 && (
-        <Link href={`/articles?page=${currentPage - 1}`}>
+        <Link href={prevLink}>
           <button className={classes['pagination__btn']}>
             <FontAwesomeIcon icon={faArrowLeftLong} /> Previous
           </button>
@@ -45,12 +58,12 @@ const Pagination = ({ totalArticlesLength, maxItemsPerPage, currentPage }) => {
                 : classes['pagination__list__item--inactive']
             }
           >
-            <Link href={`/articles?page=${page}`}>{page}</Link>
+            <Link href={numbLink(page)}>{page}</Link>
           </li>
         ))}
       </ul>
       {currentPage !== pagesCount && (
-        <Link href={`/articles?page=${currentPage + 1}`}>
+        <Link href={nextLink}>
           <button className={classes['pagination__btn']}>
             Next <FontAwesomeIcon icon={faArrowRightLong} />
           </button>
