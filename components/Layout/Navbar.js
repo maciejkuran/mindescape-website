@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import usePrevious from '@/hooks/usePrevious';
 import useModal from '@/hooks/useModal';
 import classes from './Navbar.module.scss';
@@ -10,7 +9,6 @@ import Overlay from '../UI/Modals/Overlay';
 import Search from '../Search/Search';
 
 const Navbar = () => {
-  const router = useRouter();
   const [scrollPosition, setScrollPosition] = useState(0);
   const prevScrollPosition = usePrevious(scrollPosition);
   const {
@@ -70,7 +68,7 @@ const Navbar = () => {
         <nav className={`${classes['nav-list']} ${!activeNav && classes['nav-list--inactive']}`}>
           <ul>
             <li onClick={hideNavHandler}>
-              <Link href="/articles?page=1">Articles</Link>
+              <Link href="/articles?page=1&featured=false">Articles</Link>
             </li>
             <li onClick={hideNavHandler}>
               <Link href="about">About</Link>
@@ -87,7 +85,7 @@ const Navbar = () => {
           <Overlay onClick={(activeNav && hideNavHandler) || (activeSearch && hideSearchHandler)} />
         )}
       </header>
-      {activeSearch && <Search onClick={hideSearchHandler} />}
+      {activeSearch && <Search hideSearchHandler={hideSearchHandler} />}
     </>
   );
 };
