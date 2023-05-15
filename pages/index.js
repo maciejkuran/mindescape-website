@@ -37,8 +37,8 @@ export default function HomePage(props) {
           <h3>We value a good content.</h3>
           <p>Do you?</p>
           <div>
-            <Link href="/articles?page=1">
-              <PrimaryButton>Browse articles</PrimaryButton>
+            <Link href="/articles?page=1&featured=true">
+              <PrimaryButton>Browse featured</PrimaryButton>
             </Link>
           </div>
         </Card>
