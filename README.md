@@ -80,7 +80,7 @@ Users can send a message.
 
 ## UI Design
 
-When I design an interface, I am guided by one thing. I always design an interface that I would like to use myself. In short, friendly and easy to use. I am happy with the design - it's modern and clean.
+When I design an interface, I am guided by one thing. I always design an interface that I would like to use myself. In short, friendly and easy to use. I am happy with the design - it's modern, clean and mobile devices friendly.
 
 <p align="center">
   <img src="/public/images/ui.jpg">
