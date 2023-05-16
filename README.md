@@ -32,6 +32,7 @@ The whole listing is managed in one place - only one route. Based on the query s
 #### Query Strings
 
 Sample URL to get all articles: `/articles?page=1&featured=false`.
+
 Sample URL to get all **featured articles**: `/articles?page=1&featured=true`.
 
 #### Pagination
