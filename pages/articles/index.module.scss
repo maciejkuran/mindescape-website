@@ -19,7 +19,15 @@
   &__list {
     display: grid;
     gap: 2rem;
-    grid-template-columns: repeat(auto-fill, minmax(60rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(65rem, 1fr));
+  }
+}
+
+@media (max-width: 1490px) {
+  .articles {
+    &__list {
+      grid-template-columns: repeat(auto-fill, minmax(55rem, 1fr));
+    }
   }
 }
 
