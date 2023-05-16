@@ -1,0 +1,6 @@
+Please use the source code only for learning purposes.
+If you decide to recreate this application and publish it, change the design, branding and the source code significantly. 
+
+Creator: Maciej Kuran-Janowski
+maciejkuran@gmail.com
+maciejkuran.com
