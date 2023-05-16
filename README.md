@@ -1,38 +1,87 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p align="center">
+  <img width="200" src="/public/images/mindescape logo.png">
+</p>
 
-## Getting Started
+👋 **Welcome to the Mindescape blog website**
 
-First, run the development server:
+👉 [Live website](https://mindescape-demo.vercel.app)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+# About ⚡
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This project is a complement to the [Mindescape CMS project](https://github.com/maciejkuran/mindescape-cms-public). Mindescape CMS is a content management system created for Mindescape administrators and editors, while this project is a blog for the end user. Although these two applications are separate creations, I wanted to show their relationship to each other and the way they talk through the `API routes` (CORS enabled).
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+👉 You can dive deeper into [Mindescape CMS documentation right here](https://github.com/maciejkuran/mindescape-cms-public).
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Tech Stack
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+| Frontend | Backend | Design       |
+| -------- | ------- | ------------ |
+| Next.js  | Next.js | Figma        |
+| React    |         | Font Awesome |
+| Sass     |         | Unsplash     |
+|          |         | Pixabay      |
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Functionalities
 
-## Learn More
+Despite the simple nature of the project, it includes many interesting functionalities.
 
-To learn more about Next.js, take a look at the following resources:
+### Dynamic Articles Listing
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The whole listing is managed in one place - only one route. Based on the query strings in the URL, a different data will be rendered.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+#### Query Strings
 
-## Deploy on Vercel
+Sample URL to get all articles: `/articles?page=1&featured=false`.
+Sample URL to get all **featured articles**: `/articles?page=1&featured=true`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### Pagination
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Based on the encoded page number in the URL e.g. `page=1`, the `getServerSideProps` function will paginate the data on the server and serve some portion of data dynamically. For now, there are `4` articles served per page.
+
+#### All Articles or Featured?
+
+If `featured=false`, all articles are returned. If `true`, only featured will be served by the server.
+
+#### Best SEO Practises
+
+I put a lot of effort into SEO aspects. It's a blog and nobody wants to have a non-crawlable website where all key actions are taken on the client side. There's a discussion about the client-side rendering and the SEO but the best practice, as long as you value to be indexed, is to serve the static content by your server or render the content on the fly/dynamically on the server. Next.js offers incredible features like `getStaticProps` and `getServerSideProps`. Both are amazing but depending on the situation, only one of them is the key.
+
+#### getServerSideProps
+
+`getStaticProps` allows to pre-generate dynamic content (e.g. when `fetch` data from some API) during the `build` process. I used this function to pre-generate article pages. There's no need for dynamic rendering on the server so the build process just fits well. I have specified all paths in `getStaticPaths`, and even if not, the `fallback: 'blocking'` or `fallback: 'true'` property will allow the server to do the job. The property `revalidate` will re-fetch the data from the resource after a specified amount of time when the request is made so the data at certain time intervals is updated (re-fetched).
+
+The opposite is the `/articles?...` page where we have endless possibilities for dynamic URL paths. With the help of `getServerSideProps` function that runs on the server, we can pre-generate any pages on the fly. Static content is returned from the server to the end user, so crawlers can index the content of a page. That's in a nutshell.
+
+#### Handling Errors & Success
+
+All kinds of errors `400` `500` & success messages are handled in the UI.
+
+#### Redirections
+
+I handled redirections in `/articles` page. The user will be redirected from `/articles` to `/articles?page=1&featured=false` page.
+
+### Dynamic Custom Search
+
+- search by title
+- by phrase
+- featured tag
+
+### Newsletter
+
+Users can sign up to a newsletter.
+
+### Comments
+
+Users can leave a comment under article.
+
+### Contact
+
+Users can send a message.
+
+## UI Design
+
+When I design an interface, I am guided by one thing. I always design an interface that I would like to use myself. In short, friendly and easy to use. I am happy with the design - it's modern and clean.
+
+<p align="center">
+  <img src="/public/images/ui.jpg">
+</p>
