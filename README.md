@@ -59,21 +59,21 @@ All kinds of errors `400` `500` & success messages are handled in the UI.
 
 #### Redirections
 
-I handled redirections in `/articles` page. The user will be redirected from `/articles` to `/articles?page=1&featured=false` page.
+I handled redirections on `/articles` page. The user will be redirected from `/articles` to `/articles?page=1&featured=false` page.
 
 ### Dynamic Custom Search
 
-- search by title
-- by phrase
-- featured tag
+- Search by title
+- By phrase
+- Featured tag
 
 ### Newsletter
 
-Users can sign up to a newsletter.
+Users can sign up for a newsletter.
 
 ### Comments
 
-Users can leave a comment under article.
+Users can leave a comment under an article.
 
 ### Contact
 
